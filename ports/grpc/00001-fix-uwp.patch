@@ -2,7 +2,7 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 8561c67..84de29f 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -150,6 +150,9 @@ if(UNIX)
+@@ -154,6 +154,9 @@ if(UNIX)
  endif()
  if(WIN32)
    set(_gRPC_PLATFORM_WINDOWS ON)
@@ -12,7 +12,7 @@ index 8561c67..84de29f 100644
  endif()
  
   # Use C99 standard
-@@ -174,6 +177,9 @@ if(MSVC)
+@@ -190,6 +193,9 @@ if(MSVC)
    set(_gRPC_C_CXX_FLAGS "${_gRPC_C_CXX_FLAGS} /wd4267")
    # TODO(jtattermusch): needed to build boringssl with VS2017, revisit later
    set(_gRPC_C_CXX_FLAGS "${_gRPC_C_CXX_FLAGS} /wd4987 /wd4774 /wd4819 /wd4996 /wd4619")
@@ -20,8 +20,8 @@ index 8561c67..84de29f 100644
 +    add_definitions(-DGRPC_ARES=0)
 +  endif()
  endif()
- set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${_gRPC_C_CXX_FLAGS}")
- set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${_gRPC_C_CXX_FLAGS}")
+ if (MINGW)
+   add_definitions(-D_WIN32_WINNT=0x600)
 @@ -237,6 +243,10 @@ file(MAKE_DIRECTORY ${_gRPC_PROTO_GENS_DIR})
  #     ``.proto`` files
  #
